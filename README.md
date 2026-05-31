@@ -1,0 +1,104 @@
+# FridgeChef
+
+FridgeChef is a production-ready full-stack web app for tracking fridge ingredients and finding recipes from them. It uses Google OAuth, Pinecone, Express, React, Vite, Tailwind CSS, Framer Motion, and Spoonacular.
+
+## Features
+
+- Google OAuth sign-in with protected app routes
+- Pinecone-backed users, per-user fridge ingredients, cached recipe metadata, and favorites
+- Animated refrigerator UI with add/remove ingredient flows
+- Dynamic recipe search by available ingredients
+- Meal type and complexity filters
+- Pantry score, cookable-only mode, favorites, loading states, and polished responsive UI
+
+## Project Structure
+
+```text
+FridgeChef/
+  client/      React + Vite frontend
+  server/      Express + Pinecone backend
+```
+
+## Setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy environment files:
+
+```bash
+cp server/.env.example server/.env
+cp client/.env.example client/.env
+```
+
+3. Fill in `server/.env`:
+
+```bash
+SESSION_SECRET=replace-with-a-long-random-string
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_CALLBACK_URL=http://localhost:5001/auth/google/callback
+SPOONACULAR_API_KEY=your-spoonacular-api-key
+PINECONE_API_KEY=your-pinecone-api-key
+PINECONE_INDEX_NAME=fridgechef
+PINECONE_HOST=https://your-index-host.svc.region.pinecone.io
+CLIENT_URL=http://localhost:5173
+PORT=5001
+```
+
+4. Fill in `client/.env`:
+
+```bash
+VITE_API_URL=http://localhost:5001
+```
+
+5. Configure Google OAuth:
+
+- Authorized JavaScript origin: `http://localhost:5173`
+- Authorized redirect URI: `http://localhost:5001/auth/google/callback`
+
+6. Run the app:
+
+```bash
+npm run dev
+```
+
+Frontend: `http://localhost:5173`
+
+Backend: `http://localhost:5001`
+
+## API
+
+### Auth
+
+- `GET /auth/google`
+- `GET /auth/google/callback`
+- `GET /auth/logout`
+- `GET /auth/me`
+
+### Fridge
+
+- `GET /api/fridge`
+- `POST /api/fridge/add-ingredient`
+- `DELETE /api/fridge/remove-ingredient/:ingredientId`
+
+### Recipes
+
+- `POST /api/recipes/search`
+- `GET /api/recipes/favorites`
+- `POST /api/recipes/favorites`
+- `DELETE /api/recipes/favorites/:recipeId`
+
+## Recipe API
+
+The backend uses Spoonacular's `findByIngredients` endpoint, then enriches results with recipe information. If `SPOONACULAR_API_KEY` is missing, the endpoint returns deterministic mock recipes so the UI remains usable during local development.
+
+## Production Notes
+
+- Set `NODE_ENV=production` and use HTTPS so secure cross-site session cookies work correctly.
+- Configure `CLIENT_URL` to your deployed frontend origin.
+- Store secrets in your platform secret manager, not in committed files.
+- Add the deployed backend callback URL to Google OAuth before release.

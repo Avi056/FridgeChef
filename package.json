@@ -1,0 +1,20 @@
+{
+  "name": "fridgechef",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FridgeChef full-stack recipe finder with OAuth, Pinecone, and an animated virtual fridge.",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace server\" \"npm run dev --workspace client\"",
+    "build": "npm run build --workspace client",
+    "start": "npm run start --workspace server",
+    "lint": "npm run lint --workspace client",
+    "install:all": "npm install"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
