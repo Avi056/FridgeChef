@@ -5,7 +5,8 @@ dotenv.config();
 export const env = {
   port: process.env.PORT || 5001,
   nodeEnv: process.env.NODE_ENV || "development",
-  clientUrl: process.env.CLIENT_URL || "http://localhost:5173",
+  // clientUrl: process.env.CLIENT_URL || "http://localhost:5173",
+  clientUrl: process.env.CLIENT_URL || "https://fridgecraft.netlify.app/mainpage",
   sessionSecret: process.env.SESSION_SECRET || "dev-fridgechef-session-secret",
   googleClientId: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
