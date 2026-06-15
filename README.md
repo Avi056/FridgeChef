@@ -70,7 +70,9 @@ GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback
   - Authorized redirect URI: `http://localhost:5001/auth/google/callback`
 - Production (Netlify frontend + Render backend):
   - Authorized JavaScript origin: `https://fridgecraft.netlify.app`
-  - Authorized redirect URI: `YOURVITEAPIURLHERE/auth/google/callback`
+  - Authorized redirect URI: `YOUR_RENDER_BACKEND_URL/auth/google/callback`
+
+> Important: do not set the Google callback URI to a Netlify frontend URL. It must point to the Render backend route that handles OAuth.
 
 7. Run the app locally:
 
@@ -95,7 +97,7 @@ If you deploy the frontend to Netlify and the backend is hosted on Render, keep 
 Then update your backend's production environment values:
 
 - `CLIENT_URL=https://fridgecraft.netlify.app`
-- `GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback`
+- `GOOGLE_CALLBACK_URL=YOUR_RENDER_BACKEND_URL/auth/google/callback`
 
 ## Render deployment for backend
 

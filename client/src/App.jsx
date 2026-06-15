@@ -23,7 +23,6 @@ export function App() {
     <AnimatePresence mode="wait">
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/auth/google/callback" element={<Navigate to="/login" replace />} />
         <Route
           path="/"
           element={
