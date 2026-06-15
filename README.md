@@ -70,7 +70,7 @@ GOOGLE_CALLBACK_URL=https://fridgecraft.netlify.app/auth/google/callback
   - Authorized redirect URI: `http://localhost:5001/auth/google/callback`
 - Production (Netlify frontend + Render backend):
   - Authorized JavaScript origin: `https://fridgecraft.netlify.app`
-  - Authorized redirect URI: `https://fridgecraft-api.onrender.com/auth/google/callback`
+  - Authorized redirect URI: `YOURVITEAPIURLHERE/auth/google/callback`
 
 7. Run the app locally:
 
@@ -95,7 +95,7 @@ If you deploy the frontend to Netlify and the backend is hosted on Render, keep 
 Then update your backend's production environment values:
 
 - `CLIENT_URL=https://fridgecraft.netlify.app`
-- `GOOGLE_CALLBACK_URL=https://fridgecraft-api.onrender.com/auth/google/callback`
+- `GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback`
 
 ## Render deployment for backend
 
@@ -103,7 +103,7 @@ The Express backend must be deployed to Render (or similar hosting). Set these e
 
 **Essential for OAuth & CORS:**
 - `CLIENT_URL=https://fridgecraft.netlify.app` (required so CORS allows your Netlify frontend)
-- `GOOGLE_CALLBACK_URL=https://fridgecraft-api.onrender.com/auth/google/callback` (required for OAuth redirect)
+- `GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback` (required for OAuth redirect)
 - `NODE_ENV=production` (enables secure cookies)
 
 **Authentication & APIs:**
@@ -118,7 +118,7 @@ The Express backend must be deployed to Render (or similar hosting). Set these e
 - `PINECONE_HOST=https://your-index-host.svc.region.pinecone.io`
 
 **After deployment, test:**
-- Call `https://fridgecraft-api.onrender.com/health` to verify the backend is running
+- Call `YOURVITEAPIURLHERE/health` to verify the backend is running
 - Make sure Google OAuth URLs are authorized (see OAuth configuration below)
 
 ## API
