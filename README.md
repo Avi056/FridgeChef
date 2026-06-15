@@ -56,11 +56,11 @@ PINECONE_HOST=https://your-index-host.svc.region.pinecone.io
 VITE_API_URL=http://localhost:5001
 ```
 
-5. Set up production values for Netlify + Render hosting:
+5. Set up production values for Netlify + Render backend hosting:
 
 ```bash
 CLIENT_URL=https://fridgecraft.netlify.app
-GOOGLE_CALLBACK_URL=https://fridgecraft.netlify.app/auth/google/callback
+GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback
 ```
 
 6. Configure Google OAuth:
