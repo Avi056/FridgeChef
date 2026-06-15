@@ -56,7 +56,7 @@ PINECONE_HOST=https://your-index-host.svc.region.pinecone.io
 VITE_API_URL=http://localhost:5001
 ```
 
-5. Set up production values for Netlify + backend hosting:
+5. Set up production values for Netlify + Render hosting:
 
 ```bash
 CLIENT_URL=https://fridgecraft.netlify.app
@@ -84,15 +84,15 @@ Local backend: `http://localhost:5001`
 
 ## Netlify production deployment
 
-If you deploy the frontend to Netlify, keep the backend hosted separately and set the frontend API URL in Netlify environment variables.
+If you deploy the frontend to Netlify and the backend is hosted on Render, keep the backend URL in a Netlify environment variable.
 
 - Build command: `npm install && npm run build --workspace client`
 - Publish directory: `client/dist`
 - Redirects: use `netlify.toml` to send all routes to `index.html`
-- Add an environment variable on Netlify:
-  - `VITE_API_URL=https://your-backend.example.com`
+- Add this environment variable on Netlify:
+  - `VITE_API_URL=https://fridgecraft-api.onrender.com`
 
-Then update your backend's environment values for production:
+Then update your backend's production environment values:
 
 - `CLIENT_URL=https://fridgecraft.netlify.app`
 - `GOOGLE_CALLBACK_URL=https://fridgecraft.netlify.app/auth/google/callback`
