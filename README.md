@@ -90,7 +90,7 @@ If you deploy the frontend to Netlify and the backend is hosted on Render, keep 
 - Publish directory: `client/dist`
 - Redirects: use `netlify.toml` to send all routes to `index.html`
 - Add this environment variable on Netlify:
-  - `VITE_API_URL=https://fridgecraft-api.onrender.com`
+  - `VITE_API_URL=your-vite-api-url-here`
 
 Then update your backend's production environment values:
 
