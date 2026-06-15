@@ -68,9 +68,9 @@ GOOGLE_CALLBACK_URL=https://fridgecraft.netlify.app/auth/google/callback
 - Local development:
   - Authorized JavaScript origin: `http://localhost:5173`
   - Authorized redirect URI: `http://localhost:5001/auth/google/callback`
-- Production (Netlify):
+- Production (Netlify frontend + Render backend):
   - Authorized JavaScript origin: `https://fridgecraft.netlify.app`
-  - Authorized redirect URI: `https://fridgecraft.netlify.app/auth/google/callback`
+  - Authorized redirect URI: `https://fridgecraft-api.onrender.com/auth/google/callback`
 
 7. Run the app locally:
 
