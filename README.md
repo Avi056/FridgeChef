@@ -52,7 +52,7 @@ PORT=5001
 4. Fill in `client/.env`:
 
 ```bash
-VITE_API_URL=http://localhost:5001
+VITE_API_URL=https://your-backend.example.com
 ```
 
 5. Configure Google OAuth:
@@ -69,6 +69,21 @@ npm run dev
 Frontend: `http://localhost:5173`
 
 Backend: `http://localhost:5001`
+
+## Netlify deployment
+
+If you deploy the frontend to Netlify, keep the backend hosted separately and set the frontend API URL in Netlify environment variables.
+
+- Build command: `npm install && npm run build --workspace client`
+- Publish directory: `client/dist`
+- Redirects: use `netlify.toml` to send all routes to `index.html`
+- Add an environment variable on Netlify:
+  - `VITE_API_URL=https://your-backend.example.com`
+
+Then update your backend's environment values for production:
+
+- `CLIENT_URL=https://fridgecraft.netlify.app`
+- `GOOGLE_CALLBACK_URL=https://fridgecraft.netlify.app/auth/google/callback`
 
 ## API
 
