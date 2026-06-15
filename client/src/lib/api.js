@@ -1,4 +1,8 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5001";
+const API_URL = import.meta.env.VITE_API_URL;
+
+if (!API_URL) {
+  throw new Error("VITE_API_URL must be set in client/.env or Netlify build environment variables.");
+}
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_URL}${path}`, {

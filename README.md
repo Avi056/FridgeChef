@@ -34,9 +34,12 @@ cp server/.env.example server/.env
 cp client/.env.example client/.env
 ```
 
-3. Fill in `server/.env`:
+3. Fill in `server/.env` for local development:
 
 ```bash
+PORT=5001
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
 SESSION_SECRET=replace-with-a-long-random-string
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
@@ -45,32 +48,41 @@ SPOONACULAR_API_KEY=your-spoonacular-api-key
 PINECONE_API_KEY=your-pinecone-api-key
 PINECONE_INDEX_NAME=fridgechef
 PINECONE_HOST=https://your-index-host.svc.region.pinecone.io
-CLIENT_URL=http://localhost:5173
-PORT=5001
 ```
 
-4. Fill in `client/.env`:
+4. Fill in `client/.env` for local development:
 
 ```bash
-VITE_API_URL=https://your-backend.example.com
+VITE_API_URL=http://localhost:5001
 ```
 
-5. Configure Google OAuth:
+5. Set up production values for Netlify + backend hosting:
 
-- Authorized JavaScript origin: `http://localhost:5173`
-- Authorized redirect URI: `http://localhost:5001/auth/google/callback`
+```bash
+CLIENT_URL=https://fridgecraft.netlify.app
+GOOGLE_CALLBACK_URL=https://fridgecraft.netlify.app/auth/google/callback
+```
 
-6. Run the app:
+6. Configure Google OAuth:
+
+- Local development:
+  - Authorized JavaScript origin: `http://localhost:5173`
+  - Authorized redirect URI: `http://localhost:5001/auth/google/callback`
+- Production (Netlify):
+  - Authorized JavaScript origin: `https://fridgecraft.netlify.app`
+  - Authorized redirect URI: `https://fridgecraft.netlify.app/auth/google/callback`
+
+7. Run the app locally:
 
 ```bash
 npm run dev
 ```
 
-Frontend: `http://localhost:5173`
+Local frontend: `http://localhost:5173`
 
-Backend: `http://localhost:5001`
+Local backend: `http://localhost:5001`
 
-## Netlify deployment
+## Netlify production deployment
 
 If you deploy the frontend to Netlify, keep the backend hosted separately and set the frontend API URL in Netlify environment variables.
 
