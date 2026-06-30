@@ -32,7 +32,7 @@ authRouter.get("/logout", (req, res, next) => {
 
 authRouter.get("/me", (req, res) => {
   if (!req.user) {
-    return res.status(401).json({ user: null });
+    return res.json({ user: null });
   }
 
   res.json({
