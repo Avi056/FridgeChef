@@ -59,8 +59,8 @@ VITE_API_URL=http://localhost:5001
 5. Set up production values for Netlify + Render backend hosting:
 
 ```bash
-CLIENT_URL=https://fridgecraft.netlify.app
-GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback
+CLIENT_URL=YOUR_NETLIFY_FRONTEND_URL
+GOOGLE_CALLBACK_URL=YOUR_NETLIFY_FRONTEND_URL/auth/google/callback
 ```
 
 6. Configure Google OAuth:
@@ -69,10 +69,10 @@ GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback
   - Authorized JavaScript origin: `http://localhost:5173`
   - Authorized redirect URI: `http://localhost:5001/auth/google/callback`
 - Production (Netlify frontend + Render backend):
-  - Authorized JavaScript origin: `https://fridgecraft.netlify.app`
-  - Authorized redirect URI: `YOUR_RENDER_BACKEND_URL/auth/google/callback`
+  - Authorized JavaScript origin: `YOUR_NETLIFY_FRONTEND_URL`
+  - Authorized redirect URI: `YOUR_NETLIFY_FRONTEND_URL/auth/google/callback`
 
-> Important: do not set the Google callback URI to a Netlify frontend URL. It must point to the Render backend route that handles OAuth.
+> Important: in production, Google should redirect to the Netlify `/auth/google/callback` URL. Netlify proxies that path to the backend, which lets the session cookie stay on the Netlify origin.
 
 7. Run the app locally:
 
@@ -86,26 +86,27 @@ Local backend: `http://localhost:5001`
 
 ## Netlify production deployment
 
-If you deploy the frontend to Netlify and the backend is hosted on Render, keep the backend URL in a Netlify environment variable.
+If you deploy the frontend to Netlify and the backend is hosted on Render, keep the backend URL in a Netlify environment variable. The production client uses same-origin `/auth` and `/api` paths, and the build writes Netlify proxy redirects into `client/dist/_redirects`.
 
 - Build command: `npm install && npm run build --workspace client`
 - Publish directory: `client/dist`
-- Redirects: use `netlify.toml` to send all routes to `index.html`
-- Add this environment variable on Netlify:
-  - `VITE_API_URL=your-vite-api-url-here`
+- Redirects: the client build generates `client/dist/_redirects`
+- Add one of these environment variables on Netlify:
+  - `FRIDGECHEF_API_URL=YOUR_RENDER_BACKEND_URL` (preferred)
+  - `VITE_API_URL=YOUR_RENDER_BACKEND_URL` (also supported)
 
 Then update your backend's production environment values:
 
-- `CLIENT_URL=https://fridgecraft.netlify.app`
-- `GOOGLE_CALLBACK_URL=YOUR_RENDER_BACKEND_URL/auth/google/callback`
+- `CLIENT_URL=YOUR_NETLIFY_FRONTEND_URL`
+- `GOOGLE_CALLBACK_URL=YOUR_NETLIFY_FRONTEND_URL/auth/google/callback`
 
 ## Render deployment for backend
 
 The Express backend must be deployed to Render (or similar hosting). Set these environment variables on Render:
 
 **Essential for OAuth & CORS:**
-- `CLIENT_URL=https://fridgecraft.netlify.app` (required so CORS allows your Netlify frontend)
-- `GOOGLE_CALLBACK_URL=YOURVITEAPIURLHERE/auth/google/callback` (required for OAuth redirect)
+- `CLIENT_URL=YOUR_NETLIFY_FRONTEND_URL` (required so CORS allows your Netlify frontend)
+- `GOOGLE_CALLBACK_URL=YOUR_NETLIFY_FRONTEND_URL/auth/google/callback` (required for OAuth redirect)
 - `NODE_ENV=production` (enables secure cookies)
 
 **Authentication & APIs:**
