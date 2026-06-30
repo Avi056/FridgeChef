@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (window.location.pathname === "/auth/callback") {
+    if (window.location.pathname === "/oauth/callback") {
       const url = new URL(window.location.href);
       const token = url.searchParams.get("token");
 

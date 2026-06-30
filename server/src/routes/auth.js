@@ -16,7 +16,7 @@ authRouter.get(
     failureRedirect: `${env.clientUrl}/login?error=oauth_failed`
   }),
   (req, res) => {
-    const redirectUrl = new URL("/auth/callback", env.clientUrl);
+    const redirectUrl = new URL("/oauth/callback", env.clientUrl);
     redirectUrl.searchParams.set("token", createAuthToken(req.user));
     res.redirect(redirectUrl.toString());
   }

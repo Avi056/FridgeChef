@@ -24,7 +24,7 @@ export function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
-          path="/auth/callback"
+          path="/oauth/callback"
           element={
             <ProtectedRoute>
               <Dashboard />
