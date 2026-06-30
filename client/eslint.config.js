@@ -14,6 +14,7 @@ export default [
         window: "readonly",
         document: "readonly",
         fetch: "readonly",
+        localStorage: "readonly",
         URL: "readonly"
       },
       parserOptions: {

@@ -1,6 +1,7 @@
 import express from "express";
 import passport from "passport";
 import { env } from "../config/env.js";
+import { createAuthToken, getAuthenticatedUser } from "../services/authToken.js";
 
 export const authRouter = express.Router();
 
@@ -15,7 +16,9 @@ authRouter.get(
     failureRedirect: `${env.clientUrl}/login?error=oauth_failed`
   }),
   (req, res) => {
-    res.redirect(env.clientUrl);
+    const redirectUrl = new URL("/auth/callback", env.clientUrl);
+    redirectUrl.searchParams.set("token", createAuthToken(req.user));
+    res.redirect(redirectUrl.toString());
   }
 );
 
@@ -30,17 +33,23 @@ authRouter.get("/logout", (req, res, next) => {
   });
 });
 
-authRouter.get("/me", (req, res) => {
-  if (!req.user) {
-    return res.json({ user: null });
-  }
+authRouter.get("/me", async (req, res, next) => {
+  try {
+    const user = await getAuthenticatedUser(req);
 
-  res.json({
-    user: {
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email,
-      avatar: req.user.avatar
+    if (!user) {
+      return res.json({ user: null });
     }
-  });
+
+    return res.json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar
+      }
+    });
+  } catch (error) {
+    return next(error);
+  }
 });

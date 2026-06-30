@@ -1,11 +1,26 @@
 const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
 const API_URL = import.meta.env.DEV ? configuredApiUrl || "http://localhost:5001" : "";
+const AUTH_TOKEN_KEY = "fridgechef.authToken";
+
+export function getAuthToken() {
+  return localStorage.getItem(AUTH_TOKEN_KEY);
+}
+
+export function setAuthToken(token) {
+  localStorage.setItem(AUTH_TOKEN_KEY, token);
+}
+
+export function clearAuthToken() {
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+}
 
 async function request(path, options = {}) {
+  const token = getAuthToken();
   const response = await fetch(`${API_URL}${path}`, {
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(options.headers || {})
     },
     ...options

@@ -24,6 +24,14 @@ export function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
+          path="/auth/callback"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/"
           element={
             <ProtectedRoute>
